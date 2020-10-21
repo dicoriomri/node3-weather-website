@@ -1,21 +1,17 @@
 const path = require('path')
 const express = require('express')
 const hbs = require('hbs')
+const admin = require('firebase-admin');
 const app = express()
 
 const port = process.env.PORT || 3000
 const geocode = require('./utils/geocode')
 const forecast = require('./utils/forecast')
+const getUsers = require('./utils/firebase')
 
 // Define paths for Express config
-const viewPath = path.join(__dirname,'../templates/views')
 const publicDirectoryPath = path.join(__dirname,'../public')
-const partialsPath = path.join(__dirname,'../templates/partials')
 
-// Setup Handlebars engine and templates location
-app.set('view engine', 'hbs')
-app.set('views', viewPath)
-hbs.registerPartials(partialsPath)
 
 // Setup static directory to serve
 app.use(express.static(publicDirectoryPath))
@@ -23,20 +19,6 @@ app.use(express.static(publicDirectoryPath))
 app.get('', (req, res)=> {
     res.render('index',{
         title: 'Weather',
-        name: "Omri"
-    })
-})
-
-app.get('/about', (req, res)=> {
-    res.render('about',{
-        title: 'About',
-        name: "Omri"
-    })
-})
-
-app.get('/help', (req, res)=> {
-    res.render('about',{
-        title: 'Help page',
         name: "Omri"
     })
 })
@@ -63,22 +45,17 @@ app.get('/weather', (req, res)=> {
 
 })
 
-app.get('/help/*', (req, res)=> {
-    res.render('404',{
-        title: '404',
-        errorMsg: 'Page Not Found',
-        name: "Omri"
+app.get('/users', (req, res)=> {
+
+    getUsers('', (error, data) => {
+        if (error) {
+            return res.send({ error })
+        }
+        res.send({ data });
     })
+
 })
 
-
-app.get('*', (req, res)=> {
-    res.render('404',{
-        title: '404',
-        errorMsg: 'Help Article Not Found',
-        name: "Omri"
-    })
-})
 
 app.listen(port, () => {
     console.log('server is running in port ' + port)
