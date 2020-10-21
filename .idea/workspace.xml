@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fb0e4ffa-5460-4893-8f1a-5abb92ea48cb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/assets/headz-app-firebase-adminsdk-ffml9-1ec8eb087b.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/firebase.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -46,14 +43,29 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1603299247845</updated>
-      <workItem from="1603299248882" duration="1466000" />
+      <workItem from="1603299248882" duration="2430000" />
     </task>
+    <task id="LOCAL‎00001" summary="added user">
+      <created>1603301014584</created>
+      <option name="number" value="LOCAL‎00001" />
+      <option name="presentableId" value="LOCAL‎00001" />
+      <updated>1603301014584</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added user" />
+    <option name="LAST_COMMIT_MESSAGE" value="added user" />
+  </component>
   <component name="WindowStateProjectService">
+    <state x="-1059" y="304" key="CommitChangelistDialog2" timestamp="1603301013465">
+      <screen x="-1366" y="304" width="1366" height="728" />
+    </state>
+    <state x="-1059" y="304" key="CommitChangelistDialog2/-1366.304.1366.728/0.0.1920.1040/1920.62.1920.1040@-1366.304.1366.728" timestamp="1603301013465" />
     <state width="1323" height="179" key="GridCell.Tab.0.bottom" timestamp="1603299264940">
       <screen x="-1366" y="304" width="1366" height="728" />
     </state>
@@ -70,5 +82,9 @@
       <screen x="-1366" y="304" width="1366" height="728" />
     </state>
     <state width="1323" height="179" key="GridCell.Tab.0.right/-1366.304.1366.728/0.0.1920.1040/1920.62.1920.1040@-1366.304.1366.728" timestamp="1603299264940" />
+    <state x="-1091" y="401" key="Vcs.Push.Dialog.v2" timestamp="1603301096384">
+      <screen x="-1366" y="304" width="1366" height="728" />
+    </state>
+    <state x="-1091" y="401" key="Vcs.Push.Dialog.v2/-1366.304.1366.728/0.0.1920.1040/1920.62.1920.1040@-1366.304.1366.728" timestamp="1603301096384" />
   </component>
 </project>
