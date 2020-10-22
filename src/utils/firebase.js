@@ -22,4 +22,18 @@ const getUsers = (data, callback) => {
         });
 }
 
-module.exports = getUsers
+const deleteUser = (uid, callback) => {
+    if(!uid) {
+        callback('uid must be given', undefined);
+        return;
+    }
+    admin.auth().deleteUser(uid)
+        .then(function() {
+            callback(undefined, 'user ' + uid + ' deleted!')
+        })
+        .catch(function(error) {
+            callback(error, undefined);
+        });
+}
+
+module.exports = {getUsers, deleteUser}
