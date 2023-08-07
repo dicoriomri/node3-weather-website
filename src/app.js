@@ -25,11 +25,11 @@ app.get('/weather', (req, res) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Origin', '*');
 
-    geocode((error, { dateTime } = {}) => {
+    geocode((error, { dateTime, date, time } = {}) => {
         if (error) {
             return res.send({ error })
         }
-        return res.send({dateTime});
+        return res.send({dateTime, date, time});
     })
 })
 

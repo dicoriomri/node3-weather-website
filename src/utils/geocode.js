@@ -9,6 +9,8 @@ const geocode = (callback) => {
         } else {
             callback(undefined, {
                 dateTime: body.dateTime,
+                date: body.date,
+                time: body.time,
             })
         }
     })
