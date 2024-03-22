@@ -32,7 +32,8 @@ const notificationsSend = (req, callback) => {
     const message = {
         data: {
             title: req.query.title,
-            body: req.query.body
+            body: req.query.body,
+            gameID: req.query.gameID,
         },
 
         topic: topic
