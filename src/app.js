@@ -2,6 +2,8 @@ const path = require('path')
 const express = require('express')
 const hbs = require('hbs')
 const geocode = require('./utils/geocode')
+const {notificationsRegister, notificationsSend} = require('./utils/notifications')
+
 const forecast = require('./utils/forecast')
 
 const app = express()
@@ -26,6 +28,30 @@ app.get('/weather', (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
 
     geocode((error, { dateTime, date, time } = {}) => {
+        if (error) {
+            return res.send({ error })
+        }
+        return res.send({dateTime, date, time});
+    })
+})
+
+app.get('/notification/register', (req, res) => {
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+
+    notificationsRegister(req, (error, { dateTime, date, time } = {}) => {
+        if (error) {
+            return res.send({ error })
+        }
+        return res.send({dateTime, date, time});
+    })
+})
+
+app.get('/notification/send', (req, res) => {
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+
+    notificationsSend(req, (error, { dateTime, date, time } = {}) => {
         if (error) {
             return res.send({ error })
         }
