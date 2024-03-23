@@ -38,12 +38,13 @@ const notificationsSend = (req, callback) => {
             //     link: 'https://headz-app.web.app/game/' + req.query.gameID
             // }
         },
-
+        options: {
+            link: 'https://headz-app.web.app/game/' + req.query.gameID
+        },
         topic: topic
     };
 
     // const url = 'https://iid.googleapis.com/iid/v1/'+ deviceToken +'/rel/topics/' + topic
-    admin.messaging().sendToTopic()
     getMessaging().send(message).then(((response) => {
         console.log(response)
         callback(response);
