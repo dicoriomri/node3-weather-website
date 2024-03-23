@@ -38,7 +38,7 @@ const notificationsSend = (req, callback) => {
             //     link: 'https://headz-app.web.app/game/' + req.query.gameID
             // }
         },
-        notification: {
+        webPush: {
             link: 'https://headz-app.web.app/game/' + req.query.gameID
         },
         // fcmOptions: {
