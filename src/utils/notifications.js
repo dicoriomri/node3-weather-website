@@ -33,7 +33,7 @@ const notificationsSend = (req, callback) => {
         data: {
             title: req.query.title,
             body: req.query.body,
-            gameID: req.query.gameID,s
+            gameID: req.query.gameID,
             // fcmOptions: {
             //     link: 'https://headz-app.web.app/game/' + req.query.gameID
             // }
