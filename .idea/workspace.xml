@@ -5,6 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fb0e4ffa-5460-4893-8f1a-5abb92ea48cb" name="Default Changelist" comment="changes">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/notifications.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/notifications.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -88,6 +92,7 @@
       <workItem from="1711137040943" duration="399000" />
       <workItem from="1711226447308" duration="1505000" />
       <workItem from="1711230609181" duration="767000" />
+      <workItem from="1711435310935" duration="1375000" />
     </task>
     <task id="LOCAL‎00001" summary="added user">
       <created>1603301014584</created>

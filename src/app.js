@@ -2,7 +2,7 @@ const path = require('path')
 const express = require('express')
 const hbs = require('hbs')
 const geocode = require('./utils/geocode')
-const {notificationsRegister, notificationsSend} = require('./utils/notifications')
+const {notificationsRegister, notificationsSend, notificationsScheduled, notificationsUnRegister} = require('./utils/notifications')
 
 const forecast = require('./utils/forecast')
 
@@ -47,6 +47,18 @@ app.get('/notification/register', (req, res) => {
     })
 })
 
+app.get('/notification/unregister', (req, res) => {
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+
+    notificationsUnRegister(req, (error, { dateTime, date, time } = {}) => {
+        if (error) {
+            return res.send({ error })
+        }
+        return res.send({dateTime, date, time});
+    })
+})
+
 app.get('/notification/send', (req, res) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -58,6 +70,19 @@ app.get('/notification/send', (req, res) => {
         return res.send({dateTime, date, time});
     })
 })
+
+app.get('/notification/schedule', (req, res) => {
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+
+    notificationsScheduled(req, (error, { dateTime, date, time } = {}) => {
+        if (error) {
+            return res.send({ error })
+        }
+        return res.send({dateTime, date, time});
+    })
+})
+
 
 app.listen(port, () => {
     console.log('Server is up on port ' + port)
