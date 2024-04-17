@@ -63,7 +63,6 @@ const notificationsSend = (req, callback) => {
     };
 
     // const url = 'https://iid.googleapis.com/iid/v1/'+ deviceToken +'/rel/topics/' + topic
-    let request = require('request');
     let options = {
         'method': 'POST',
         'url': 'https://fcm.googleapis.com/v1/projects/headz-app/messages:send',
