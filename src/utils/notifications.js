@@ -45,31 +45,39 @@ const notificationsSend = (req, callback) => {
     const fcm_server_key = 'AAAAJrVJhUU:APA91bH6INBHtOCS3YZ8_pqsgpsHauwGkboG3H74pxxlqPJ3LNOJrxyrc5M7y7GRi-RFWIo9NUfOX6Uu1fHLdAiZsF4BZNc4z0GYWEV78ZaS6Dl1tuxnbXNWe1SCvwdiZg0Ltv7GNDui';
     const deviceToken = req.query.deviceToken;
     console.log(topic, deviceToken)
-    const message = {
-        data: {
-            title: req.query.title,
-            body: req.query.body,
-            gameID: req.query.gameID,
-            // fcmOptions: {
-            //     link: 'https://headz-app.web.app/game/' + req.query.gameID
-            // }
-        },
-        notification : {
-            body : "First Notification",
-            title: "Collapsing A",
-            click_action:"DisplayTestActivity"
-        },
-        // fcmOptions: {
-        //     link: 'https://headz-app.web.app/game/' + req.query.gameID
-        // },
-        topic: topic
+    const message = { message: {
+            data: {
+                title: req.query.title,
+                body: req.query.body,
+                gameID: req.query.gameID,
+                // fcmOptions: {
+                //     link: 'https://headz-app.web.app/game/' + req.query.gameID
+                // }
+            },
+            notification : {
+                body : req.query.body,
+                title: req.query.title,
+            },
+            topic: topic
+        }
     };
 
     // const url = 'https://iid.googleapis.com/iid/v1/'+ deviceToken +'/rel/topics/' + topic
-    getMessaging().send(message).then(((response) => {
-        console.log(response)
-        callback(response);
-    }));
+    let request = require('request');
+    let options = {
+        'method': 'POST',
+        'url': 'https://fcm.googleapis.com/v1/projects/headz-app/messages:send',
+        'headers': {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ya29.a0Ad52N3_pZ20r4QxDXmueByR6VF-vVx4bEbHBNhZ6AaCO0YXQuLED6PG56SGfrojgwDfASzv9wu1At8DyLAx1ehMnzBZgBUCCU2FGEYiVgYl0aZobWn6C5Z6sX5ZIL9Hb77-y2ljLiuD19HbKU3sb-JeeB7jHXojC0Jb-aCgYKAeQSARMSFQHGX2MiaKBRiqmpaa-rH9zuJyVd_g0171'
+        },
+        body: message
+
+    };
+    request(options, function (error, response) {
+        if (error) throw new Error(error);
+        console.log(response.body);
+    });
 }
 
 const notificationsScheduled = (req, callback) => {
