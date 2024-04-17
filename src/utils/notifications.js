@@ -1,7 +1,9 @@
-const request = require('request')
-const { initializeApp } = require('firebase-admin');
+let request = require('request');const { initializeApp } = require('firebase-admin');
 const {getMessaging} = require("firebase-admin/messaging");
 const schedule = require('node-schedule');
+const {google} = require('googleapis');
+const MESSAGING_SCOPE = 'https://www.googleapis.com/auth/firebase.messaging';
+const SCOPES = [MESSAGING_SCOPE];
 
 
 let admin = require("firebase-admin");
@@ -13,6 +15,25 @@ admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: 'https://<DATABASE_NAME>.firebaseio.com'
 });
+function getAccessToken() {
+    return new Promise(function(resolve, reject) {
+        const key = require('../assets/headz-app-firebase-adminsdk-ffml9-8b0eb6d364.json');
+        const jwtClient = new google.auth.JWT(
+            key.client_email,
+            null,
+            key.private_key,
+            SCOPES,
+            null
+        );
+        jwtClient.authorize(function(err, tokens) {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve(tokens.access_token);
+        });
+    });
+}
 
 const notificationsRegister = (req, callback) => {
     const topic = req.query.topic;
@@ -42,74 +63,90 @@ const notificationsUnRegister = (req, callback) => {
 
 const notificationsSend = (req, callback) => {
     const topic = req.query.topic;
-    const fcm_server_key = 'AAAAJrVJhUU:APA91bH6INBHtOCS3YZ8_pqsgpsHauwGkboG3H74pxxlqPJ3LNOJrxyrc5M7y7GRi-RFWIo9NUfOX6Uu1fHLdAiZsF4BZNc4z0GYWEV78ZaS6Dl1tuxnbXNWe1SCvwdiZg0Ltv7GNDui';
-    const deviceToken = req.query.deviceToken;
-    console.log(topic, deviceToken)
-    const message = { message: {
-            data: {
-                title: req.query.title,
-                body: req.query.body,
-                gameID: req.query.gameID,
-                // fcmOptions: {
-                //     link: 'https://headz-app.web.app/game/' + req.query.gameID
-                // }
-            },
-            notification : {
-                body : req.query.body,
-                title: req.query.title,
-            },
-            topic: topic
-        }
-    };
+    const authToken = getAccessToken().then((response) => {
+        console.log(response)
+        const message = { message: {
+                data: {
+                    title: req.query.title,
+                    body: req.query.body,
+                    gameID: req.query.gameID,
+                    // fcmOptions: {
+                    //     link: 'https://headz-app.web.app/game/' + req.query.gameID
+                    // }
+                },
+                notification : {
+                    body : req.query.body,
+                    title: req.query.title,
+                },
+                topic: topic
+            }
+        };
 
-    // const url = 'https://iid.googleapis.com/iid/v1/'+ deviceToken +'/rel/topics/' + topic
-    let options = {
-        'method': 'POST',
-        'url': 'https://fcm.googleapis.com/v1/projects/headz-app/messages:send',
-        'headers': {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ya29.a0Ad52N3_pZ20r4QxDXmueByR6VF-vVx4bEbHBNhZ6AaCO0YXQuLED6PG56SGfrojgwDfASzv9wu1At8DyLAx1ehMnzBZgBUCCU2FGEYiVgYl0aZobWn6C5Z6sX5ZIL9Hb77-y2ljLiuD19HbKU3sb-JeeB7jHXojC0Jb-aCgYKAeQSARMSFQHGX2MiaKBRiqmpaa-rH9zuJyVd_g0171'
-        },
-        body: message
+        // const url = 'https://iid.googleapis.com/iid/v1/'+ deviceToken +'/rel/topics/' + topic
+        let options = {
+            'method': 'POST',
+            'url': 'https://fcm.googleapis.com/v1/projects/headz-app/messages:send',
+            'headers': {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + response
+            },
+            body: message,
+            json: true
 
-    };
-    request(options, function (error, response) {
-        if (error) throw new Error(error);
-        console.log(response.body);
-    });
+        };
+        request(options, function (error, response) {
+            if (error) throw new Error(error);
+            callback(true);
+        });
+    })
+
 }
 
 const notificationsScheduled = (req, callback) => {
     const topic = req.query.topic;
     const reqDate = req.query.date;
-    const fcm_server_key = 'AAAAJrVJhUU:APA91bH6INBHtOCS3YZ8_pqsgpsHauwGkboG3H74pxxlqPJ3LNOJrxyrc5M7y7GRi-RFWIo9NUfOX6Uu1fHLdAiZsF4BZNc4z0GYWEV78ZaS6Dl1tuxnbXNWe1SCvwdiZg0Ltv7GNDui';
-    const deviceToken = req.query.deviceToken;
-    console.log(topic, deviceToken)
-    const message = {
-        data: {
-            title: req.query.title,
-            body: req.query.body,
-            gameID: req.query.gameID,
-            // fcmOptions: {
-            //     link: 'https://headz-app.web.app/game/' + req.query.gameID
-            // }
-        },
-        // fcmOptions: {
-        //     link: 'https://headz-app.web.app/game/' + req.query.gameID
-        // },
-        topic: topic
-    };
+    const authToken = getAccessToken().then((response) => {
+        console.log(response)
+        const message = { message: {
+                data: {
+                    title: req.query.title,
+                    body: req.query.body,
+                    gameID: req.query.gameID,
+                    // fcmOptions: {
+                    //     link: 'https://headz-app.web.app/game/' + req.query.gameID
+                    // }
+                },
+                notification : {
+                    body : req.query.body,
+                    title: req.query.title,
+                },
+                topic: topic
+            }
+        };
 
-    // const url = 'https://iid.googleapis.com/iid/v1/'+ deviceToken +'/rel/topics/' + topic
-    const date = moment(reqDate, 'DD-MM-YYYY-HH-mm-ss').toISOString();
-    console.log(date)
-    const job = schedule.scheduleJob(date, () => {
-        console.log('printed')
-        getMessaging().send(message).then(((response) => {
-            console.log(response)
-        }));
-    });
-    callback(true);
+        // const url = 'https://iid.googleapis.com/iid/v1/'+ deviceToken +'/rel/topics/' + topic
+        let options = {
+            'method': 'POST',
+            'url': 'https://fcm.googleapis.com/v1/projects/headz-app/messages:send',
+            'headers': {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + response
+            },
+            body: message,
+            json: true
+
+        };
+        // const url = 'https://iid.googleapis.com/iid/v1/'+ deviceToken +'/rel/topics/' + topic
+        const date = moment(reqDate, 'DD-MM-YYYY-HH-mm-ss').toISOString();
+        console.log(date)
+        const job = schedule.scheduleJob(date, () => {
+            console.log('printed')
+            request(options, function (error, response) {
+                if (error) throw new Error(error);
+            });
+        });
+        callback(true);
+    })
 }
 
 
