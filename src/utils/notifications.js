@@ -54,6 +54,11 @@ const notificationsSend = (req, callback) => {
             //     link: 'https://headz-app.web.app/game/' + req.query.gameID
             // }
         },
+        notification : {
+            body : "First Notification",
+            title: "Collapsing A",
+            click_action:"DisplayTestActivity"
+        },
         // fcmOptions: {
         //     link: 'https://headz-app.web.app/game/' + req.query.gameID
         // },
