@@ -53,15 +53,14 @@ const notificationsSend = (req, callback) => {
             // fcmOptions: {
             //     link: 'https://headz-app.web.app/game/' + req.query.gameID
             // }
-        },
+        }
         // fcmOptions: {
         //     link: 'https://headz-app.web.app/game/' + req.query.gameID
         // },
-        topic: topic
     };
 
     // const url = 'https://iid.googleapis.com/iid/v1/'+ deviceToken +'/rel/topics/' + topic
-    getMessaging().send(message).then(((response) => {
+    getMessaging().sendToTopic(topic, message).then(((response) => {
         console.log(response)
         callback(response);
     }));
