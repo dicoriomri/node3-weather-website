@@ -64,7 +64,6 @@ const notificationsUnRegister = (req, callback) => {
 const notificationsSend = (req, callback) => {
     const topic = req.query.topic;
     const authToken = getAccessToken().then((response) => {
-        console.log(response)
         const message = { message: {
                 data: {
                     title: req.query.title,
@@ -106,7 +105,6 @@ const notificationsScheduled = (req, callback) => {
     const topic = req.query.topic;
     const reqDate = req.query.date;
     const authToken = getAccessToken().then((response) => {
-        console.log(response)
         const message = { message: {
                 data: {
                     title: req.query.title,
@@ -138,7 +136,6 @@ const notificationsScheduled = (req, callback) => {
         };
         // const url = 'https://iid.googleapis.com/iid/v1/'+ deviceToken +'/rel/topics/' + topic
         const date = moment(reqDate, 'DD-MM-YYYY-HH-mm-ss').toISOString();
-        console.log(date)
         const job = schedule.scheduleJob(date, () => {
             console.log('printed')
             request(options, function (error, response) {
