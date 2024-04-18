@@ -96,7 +96,8 @@
       <workItem from="1713345194206" duration="373000" />
       <workItem from="1713346413239" duration="3091000" />
       <workItem from="1713428501093" duration="602000" />
-      <workItem from="1713433398620" duration="190000" />
+      <workItem from="1713433398620" duration="320000" />
+      <workItem from="1713433905940" duration="1119000" />
     </task>
     <task id="LOCAL‎00001" summary="added user">
       <created>1603301014584</created>
@@ -133,12 +134,13 @@
     <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.History.Properties">
-    <option name="COLUMN_ORDER">
+    <option name="COLUMN_ID_ORDER">
       <list>
-        <option value="0" />
-        <option value="2" />
-        <option value="3" />
-        <option value="1" />
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="Space.CommitStatus" />
       </list>
     </option>
   </component>

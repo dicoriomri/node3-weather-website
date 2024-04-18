@@ -76,7 +76,14 @@ const notificationsSend = (req, callback) => {
                 notification : {
                     body : req.query.body,
                     title: req.query.title,
-                    badge: 1,
+                },
+                apns: {
+                    payload: {
+                        aps: {
+                            contentAvailable: true,
+                            sound: 'default'
+                        },
+                    },
                 },
                 topic: topic
             }
@@ -118,7 +125,14 @@ const notificationsScheduled = (req, callback) => {
                 notification : {
                     body : req.query.body,
                     title: req.query.title,
-                    badge: 1
+                },
+                apns: {
+                    payload: {
+                        aps: {
+                            contentAvailable: true,
+                            sound: 'default'
+                        },
+                    },
                 },
                 topic: topic
             }
