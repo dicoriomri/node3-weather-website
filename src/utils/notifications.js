@@ -77,7 +77,6 @@ const notificationsSend = (req, callback) => {
                     body : req.query.body,
                     title: req.query.title,
                     badge: 1,
-                    sound: 'default'
                 },
                 topic: topic
             }
@@ -119,8 +118,7 @@ const notificationsScheduled = (req, callback) => {
                 notification : {
                     body : req.query.body,
                     title: req.query.title,
-                    badge: 1,
-                    sound: 'default'
+                    badge: 1
                 },
                 topic: topic
             }
