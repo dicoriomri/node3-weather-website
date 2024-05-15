@@ -222,7 +222,6 @@ const saveDataToGame = (req, callback) => {
             }
         }
         const saveRef = db.collection('games').doc(gameID);
-
         const result = await saveRef.update({
             allResults: resultData.allResults,
             table: resultData.table,
