@@ -2,7 +2,7 @@ const path = require('path')
 const express = require('express')
 const hbs = require('hbs')
 const geocode = require('./utils/geocode')
-const {saveDataToGame} = require('./utils/updatesFromWatch')
+const {saveDataToGame, getDataFromGame} = require('./utils/updatesFromWatch')
 const {notificationsRegister, notificationsSend, notificationsScheduled, notificationsUnRegister} = require('./utils/notifications')
 
 const forecast = require('./utils/forecast')
@@ -88,11 +88,24 @@ app.get('/watchResults/set', (req, res) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Origin', '*');
 
-    saveDataToGame(req, (error, { dateTime, date, time } = {}) => {
+    saveDataToGame(req, (error,  gameData  = {}) => {
         if (error) {
-            return res.send({ error })
+            return res.send(error)
         }
-        return res.send({dateTime, date, time});
+        return res.send(gameData);
+    })
+})
+
+app.get('/watchResults/get', (req, res) => {
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+
+    getDataFromGame(req, (error, { gameData } = {}) => {
+        if (gameData) {
+
+            return res.send({ gameData })
+        }
+        return res.send({"gameData": gameData});
     })
 })
 
