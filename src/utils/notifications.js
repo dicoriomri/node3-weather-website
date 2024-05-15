@@ -11,10 +11,13 @@ let admin = require("firebase-admin");
 let serviceAccount = require("../json/headz-app-firebase-adminsdk-ffml9-29700b66b3.json");
 const moment = require("moment");
 
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: 'https://<DATABASE_NAME>.firebaseio.com'
-});
+if (!admin.apps.length) {
+    const firebaseAdmin = admin.initializeApp({
+        credential: admin.credential.cert(serviceAccount),
+        databaseURL: "dB_URL"
+    });
+}
+
 function getAccessToken() {
     return new Promise(function(resolve, reject) {
         const key = require('../assets/headz-app-firebase-adminsdk-ffml9-8b0eb6d364.json');
