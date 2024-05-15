@@ -241,7 +241,6 @@ const saveDataToGame = (req, callback) => {
             "showTieBreaker": resultData.showTieBreaker,
         })
     })
-
 }
 
 const getDataFromGame = async (req, callback) => {
