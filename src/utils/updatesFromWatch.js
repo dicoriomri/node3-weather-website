@@ -60,7 +60,7 @@ const saveDataToGame = (req, callback) => {
         const field_name = gameData.field_name;
 
         if (!gameData.homeTeam) {
-            callback( {
+            callback( false, {
                     "field_name": null,
                     "homeTeam": null,
                     "awayTeam": null,
