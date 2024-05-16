@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fb0e4ffa-5460-4893-8f1a-5abb92ea48cb" name="Default Changelist" comment="changes">
-      <change beforePath="$PROJECT_DIR$/src/utils/updatesFromWatch.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/updatesFromWatch.js" afterDir="false" />
-    </list>
+    <list default="true" id="fb0e4ffa-5460-4893-8f1a-5abb92ea48cb" name="Default Changelist" comment="changes" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -102,7 +100,7 @@
       <workItem from="1713598873027" duration="598000" />
       <workItem from="1714473581768" duration="415000" />
       <workItem from="1715767434966" duration="16286000" />
-      <workItem from="1715806083088" duration="1633000" />
+      <workItem from="1715806083088" duration="1748000" />
     </task>
     <task id="LOCAL‎00001" summary="added user">
       <created>1603301014584</created>
