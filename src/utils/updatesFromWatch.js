@@ -58,6 +58,18 @@ const saveDataToGame = (req, callback) => {
     docRef.get().then(async (response) => {
         let gameData = response.data()
         const field_name = gameData.field_name;
+
+        if (!gameData.homeTeam) {
+            callback( {
+                    "field_name": null,
+                    "homeTeam": null,
+                    "awayTeam": null,
+                    "awayScore": null,
+                    "homeScore": null,
+                    "showTieBreaker": null
+            }
+            )
+        }
         let resultData = {
             allResults: gameData.allResults,
             table: gameData.table,

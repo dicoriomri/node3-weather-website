@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fb0e4ffa-5460-4893-8f1a-5abb92ea48cb" name="Default Changelist" comment="changes" />
+    <list default="true" id="fb0e4ffa-5460-4893-8f1a-5abb92ea48cb" name="Default Changelist" comment="changes">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/updatesFromWatch.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/updatesFromWatch.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -100,7 +103,7 @@
       <workItem from="1713598873027" duration="598000" />
       <workItem from="1714473581768" duration="415000" />
       <workItem from="1715767434966" duration="16286000" />
-      <workItem from="1715806083088" duration="326000" />
+      <workItem from="1715806083088" duration="1444000" />
     </task>
     <task id="LOCAL‎00001" summary="added user">
       <created>1603301014584</created>
@@ -151,26 +154,5 @@
     <MESSAGE value="added user" />
     <MESSAGE value="changes" />
     <option name="LAST_COMMIT_MESSAGE" value="changes" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/utils/updatesFromWatch.js</url>
-          <line>59</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/utils/updatesFromWatch.js</url>
-          <line>75</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/utils/updatesFromWatch.js</url>
-          <line>84</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
