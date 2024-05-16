@@ -70,6 +70,7 @@ const saveDataToGame = (req, callback) => {
             }
             )
         }
+
         let resultData = {
             allResults: gameData.allResults,
             table: gameData.table,
