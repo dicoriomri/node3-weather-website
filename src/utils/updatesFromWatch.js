@@ -58,6 +58,7 @@ const saveDataToGame = (req, callback) => {
     docRef.get().then(async (response) => {
         let gameData = response.data()
         const field_name = gameData.field_name;
+        const teams = gameData.teams;
 
         if (!gameData.homeTeam) {
             callback( false, {
@@ -245,7 +246,14 @@ const saveDataToGame = (req, callback) => {
             awayScore: resultData.awayScore,
             showTieBreaker: resultData.showTieBreaker,
         })
+        const gameTeams = [];
+        teams.forEach((team) => {
+            gameTeams.push({
+                teamColor: team.teamColor
+            })
+        })
         callback(false, {
+            "gameTeams": gameTeams,
             "field_name": field_name,
             "homeTeam": resultData.homeTeam,
             "awayTeam": resultData.awayTeam,
@@ -261,17 +269,54 @@ const getDataFromGame = async (req, callback) => {
     let result
     const docRef = db.collection('games').doc(gameID);
     result = (await docRef.get()).data()
+    const gameTeams = []
+    result.teams.forEach((team) => {
+        gameTeams.push({
+            teamColor: team.teamColor
+        })
+    })
     callback(false, {
-        "gameData": {
+            "gameTeams": result.teams || [],
             "field_name": result.field_name,
-            "homeTeam": result.homeTeam,
-            "awayTeam": result.awayTeam,
-            "awayScore": result.awayScore,
-            "homeScore": result.homeScore,
-            "showTieBreaker": result.showTieBreaker,
-        }
+            "homeTeam": result.homeTeam || 0,
+            "awayTeam": result.awayTeam || 0,
+            "awayScore": result.awayScore || 0,
+            "homeScore": result.homeScore || 0,
+            "showTieBreaker": result.showTieBreaker || false,
     })
 }
 
+const getUserGames = async (req, callback) => {
+    const userID = req.query.userID;
+    let result
+    const docRef = db.collection('users').doc(userID);
+    result = (await docRef.get()).data()
+    const gamesToReturn = []
+    const promises = []
+    result.gamesAdmin.forEach((game) => {
+        const gameRef = db.collection('games').doc(game);
+        promises.push(
+            new Promise(async (resolve) => {
+                let gameData = (await gameRef.get()).data()
+                gamesToReturn.push({
+                    gameID: gameData.gameID,
+                    field_name: gameData.field_name,
+                    playDate: gameData.playDate
+                })
+                resolve()
+            })
+        )
+    })
 
-module.exports = {saveDataToGame, getDataFromGame}
+    Promise.all(promises).then(() => {
+        callback(false, {
+            "games": gamesToReturn
+        })
+    })
+
+
+
+}
+
+
+module.exports = {saveDataToGame, getDataFromGame, getUserGames}

@@ -5,6 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fb0e4ffa-5460-4893-8f1a-5abb92ea48cb" name="Default Changelist" comment="changes">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/updatesFromWatch.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/updatesFromWatch.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -102,7 +104,8 @@
       <workItem from="1713598873027" duration="598000" />
       <workItem from="1714473581768" duration="415000" />
       <workItem from="1715767434966" duration="16286000" />
-      <workItem from="1715806083088" duration="1919000" />
+      <workItem from="1715806083088" duration="2561000" />
+      <workItem from="1715927772897" duration="5627000" />
     </task>
     <task id="LOCAL‎00001" summary="added user">
       <created>1603301014584</created>
