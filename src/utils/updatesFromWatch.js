@@ -270,11 +270,14 @@ const getDataFromGame = async (req, callback) => {
     const docRef = db.collection('games').doc(gameID);
     result = (await docRef.get()).data()
     const gameTeams = []
-    result.teams.forEach((team) => {
-        gameTeams.push({
-            teamColor: team.teamColor
+    if (result.teams && result.teams.length) {
+        result.teams.forEach((team) => {
+            gameTeams.push({
+                teamColor: team.teamColor
+            })
         })
-    })
+    }
+
     callback(false, {
             "gameTeams": result.teams || [],
             "field_name": result.field_name,
