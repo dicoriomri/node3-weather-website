@@ -1,18 +1,11 @@
 const request = require('request')
+const moment = require("moment");
 
 const geocode = (callback) => {
-    const url = 'https://timeapi.io/api/Time/current/zone?timeZone=Asia/Jerusalem'
-
-    request({ url, json: true }, (error, { body }) => {
-        if (error) {
-            callback('Unable to connect to location services!', undefined)
-        } else {
-            callback(undefined, {
-                dateTime: body.dateTime,
-                date: body.date,
-                time: body.time,
-            })
-        }
+    callback(undefined, {
+        dateTime: moment().toISOString(true),
+        date: moment().format('DD/MM/YYYY'),
+        time: moment().format('HH:mm'),
     })
 }
 
