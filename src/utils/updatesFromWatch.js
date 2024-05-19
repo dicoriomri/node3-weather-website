@@ -86,9 +86,7 @@ const saveDataToGame = (req, callback) => {
             resultData[variable] = scoreValue
         }
         if (functionToUse === 'addGoalToTeam') {
-            console.log(resultData[variable])
             resultData[variable]++
-            console.log(resultData[variable])
         }
         if (functionToUse === 'subGoalToTeam') {
             if (resultData[variable] && resultData[variable] > 0) {
@@ -235,6 +233,25 @@ const saveDataToGame = (req, callback) => {
                 resultData.homeScore = 0
             }
         }
+
+        if (functionToUse === "addGoalToPlayer") {
+            if (variable && scoreValue) {
+                console.log(variable)
+                console.log(scoreValue)
+                console.log(gameData.teams[scoreValue - 1])
+                const playerIndex = gameData.teams[scoreValue - 1].teamPlayers.findIndex(player => player.userID == variable)
+                console.log(playerIndex)
+                if (playerIndex > -1) {
+                    if (gameData.teams[scoreValue - 1].teamPlayers[playerIndex].goals) {
+                        gameData.teams[scoreValue - 1].teamPlayers[playerIndex].goals += 1
+                    } else {
+                        gameData.teams[scoreValue - 1].teamPlayers[playerIndex].goals = 1
+                    }
+                }
+            }
+
+        }
+
         const saveRef = db.collection('games').doc(gameID);
         const result = await saveRef.update({
             allResults: resultData.allResults,
@@ -245,13 +262,27 @@ const saveDataToGame = (req, callback) => {
             homeScore: resultData.homeScore,
             awayScore: resultData.awayScore,
             showTieBreaker: resultData.showTieBreaker,
+            teams: gameData.teams,
         })
-        const gameTeams = [];
-        teams.forEach((team) => {
-            gameTeams.push({
-                teamColor: team.teamColor
+        const gameTeams = []
+        if (gameData.teams && gameData.teams.length) {
+            gameData.teams.forEach((team, teamIndex) => {
+                const teamPlayers = [];
+                team.teamPlayers.forEach((player, idx) => {
+                    teamPlayers.push({
+                        fullName: player.first_name + " " + player.last_name,
+                        userID: (player.userID).toString(),
+                        goals: (player.goals || 0).toString(),
+                        playerIndex: (idx + 1).toString()
+                    })
+                })
+                gameTeams.push({
+                    teamPlayers: teamPlayers,
+                    teamIndex: (teamIndex + 1).toString(),
+                    teamColor: team.teamColor
+                })
             })
-        })
+        }
         callback(false, {
             "gameTeams": gameTeams,
             "field_name": field_name,
@@ -271,15 +302,25 @@ const getDataFromGame = async (req, callback) => {
     result = (await docRef.get()).data()
     const gameTeams = []
     if (result.teams && result.teams.length) {
-        result.teams.forEach((team) => {
+        result.teams.forEach((team, teamIndex) => {
+            const teamPlayers = [];
+            team.teamPlayers.forEach((player, idx) => {
+                teamPlayers.push({
+                    fullName: player.first_name + " " + player.last_name,
+                    userID: (player.userID).toString(),
+                    goals: (player.goals || 0).toString(),
+                    playerIndex: (idx + 1).toString()
+                })
+            })
             gameTeams.push({
+                teamPlayers: teamPlayers,
+                teamIndex: (teamIndex + 1).toString(),
                 teamColor: team.teamColor
             })
         })
     }
-
     callback(false, {
-            "gameTeams": result.teams || [],
+            "gameTeams":gameTeams || [],
             "field_name": result.field_name,
             "homeTeam": result.homeTeam || 0,
             "awayTeam": result.awayTeam || 0,
