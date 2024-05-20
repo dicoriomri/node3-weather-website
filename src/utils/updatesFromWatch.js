@@ -236,11 +236,7 @@ const saveDataToGame = (req, callback) => {
 
         if (functionToUse === "addGoalToPlayer") {
             if (variable && scoreValue) {
-                console.log(variable)
-                console.log(scoreValue)
-                console.log(gameData.teams[scoreValue - 1])
                 const playerIndex = gameData.teams[scoreValue - 1].teamPlayers.findIndex(player => player.userID == variable)
-                console.log(playerIndex)
                 if (playerIndex > -1) {
                     if (gameData.teams[scoreValue - 1].teamPlayers[playerIndex].goals) {
                         gameData.teams[scoreValue - 1].teamPlayers[playerIndex].goals += 1
@@ -249,7 +245,17 @@ const saveDataToGame = (req, callback) => {
                     }
                 }
             }
+        }
 
+        if (functionToUse === "subGoalToPlayer") {
+            if (variable && scoreValue > -1) {
+                const playerIndex = gameData.teams[scoreValue - 1].teamPlayers.findIndex(player => player.userID == variable)
+                if (playerIndex > -1) {
+                    if (gameData.teams[scoreValue - 1].teamPlayers[playerIndex].goals && gameData.teams[scoreValue - 1].teamPlayers[playerIndex].goals > 0) {
+                        gameData.teams[scoreValue - 1].teamPlayers[playerIndex].goals--
+                    }
+                }
+            }
         }
 
         const saveRef = db.collection('games').doc(gameID);
