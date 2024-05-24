@@ -39,7 +39,7 @@ app.get('/weather', (req, res) => {
 app.get('/version', (req, res) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Origin', '*');
-    return res.send({version: "3.8"});
+    return res.send({version: "3.9"});
 
 })
 
