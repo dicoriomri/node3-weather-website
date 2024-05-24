@@ -258,6 +258,31 @@ const saveDataToGame = (req, callback) => {
             }
         }
 
+
+        if (functionToUse === "addAssistToPlayer") {
+            if (variable && scoreValue) {
+                const playerIndex = gameData.teams[scoreValue - 1].teamPlayers.findIndex(player => player.userID == variable)
+                if (playerIndex > -1) {
+                    if (gameData.teams[scoreValue - 1].teamPlayers[playerIndex].assists) {
+                        gameData.teams[scoreValue - 1].teamPlayers[playerIndex].assists += 1
+                    } else {
+                        gameData.teams[scoreValue - 1].teamPlayers[playerIndex].assists = 1
+                    }
+                }
+            }
+        }
+
+        if (functionToUse === "subAssistToPlayer") {
+            if (variable && scoreValue > -1) {
+                const playerIndex = gameData.teams[scoreValue - 1].teamPlayers.findIndex(player => player.userID == variable)
+                if (playerIndex > -1) {
+                    if (gameData.teams[scoreValue - 1].teamPlayers[playerIndex].assists && gameData.teams[scoreValue - 1].teamPlayers[playerIndex].assists > 0) {
+                        gameData.teams[scoreValue - 1].teamPlayers[playerIndex].assists--
+                    }
+                }
+            }
+        }
+
         const saveRef = db.collection('games').doc(gameID);
         const result = await saveRef.update({
             allResults: resultData.allResults,
