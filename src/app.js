@@ -36,10 +36,11 @@ app.get('/weather', (req, res) => {
     })
 })
 
+
 app.get('/version', (req, res) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Origin', '*');
-    return res.send({version: "3.9"});
+    return res.send({version: "3.10"});
 
 })
 
@@ -104,6 +105,18 @@ app.get('/watchResults/set', (req, res) => {
 })
 
 app.get('/watchResults/get', (req, res) => {
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+
+    getDataFromGame(req, (error,  gameData  = {}) => {
+        if (gameData) {
+            return res.send( gameData )
+        }
+        return res.send(gameData);
+    })
+})
+
+app.get('/createTimer', (req, res) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Origin', '*');
 
