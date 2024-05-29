@@ -326,6 +326,7 @@ const saveDataToGame = (req, callback) => {
                         fullName: player.first_name + " " + player.last_name,
                         userID: (player.userID).toString(),
                         goals: (player.goals || 0).toString(),
+                        assists: (player.assists || 0).toString(),
                         playerIndex: (idx + 1).toString()
                     })
                 })
@@ -363,6 +364,7 @@ const getDataFromGame = async (req, callback) => {
                     fullName: player.first_name + " " + player.last_name,
                     userID: (player.userID).toString(),
                     goals: (player.goals || 0).toString(),
+                    assists: (player.assists || 0).toString(),
                     playerIndex: (idx + 1).toString()
                 })
             })
