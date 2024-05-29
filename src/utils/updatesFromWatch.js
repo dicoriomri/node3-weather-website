@@ -66,6 +66,7 @@ const saveDataToGame = (req, callback) => {
                     "homeTeam": null,
                     "awayTeam": null,
                     "awayScore": null,
+                    "gameFlow": null,
                     "homeScore": null,
                     "showTieBreaker": null
             }
@@ -78,6 +79,7 @@ const saveDataToGame = (req, callback) => {
             pending: gameData.pending,
             homeTeam: gameData.homeTeam,
             awayTeam: gameData.awayTeam,
+            gameFlow: gameData.gameFlow,
             homeScore: gameData.homeScore || 0,
             awayScore: gameData.awayScore || 0,
             showTieBreaker: gameData.showTieBreaker || false,
@@ -148,7 +150,6 @@ const saveDataToGame = (req, callback) => {
                 resultData.table[awayIndex].teamAgainst -= homeTeamToRestore.score
                 resultData.pending.unshift(resultData.awayTeam)
                 resultData.awayTeam = resultData.pending.pop()
-                resultData.allResults.pop()
             } else if (homeTeamToRestore.score < awayTeamToRestore.score) {
                 resultData.table[awayIndex].teamPoints -= 3
                 resultData.table[homeIndex].teamGames--
@@ -159,7 +160,6 @@ const saveDataToGame = (req, callback) => {
                 resultData.table[awayIndex].teamAgainst -= homeTeamToRestore.score
                 resultData.pending.unshift(resultData.homeTeam)
                 resultData.homeTeam = resultData.pending.pop()
-                resultData.allResults.pop()
             } else if (homeTeamToRestore.score === awayTeamToRestore.score) {
                 resultData.table[homeIndex].teamPoints -= 1
                 resultData.table[awayIndex].teamPoints -= 1
@@ -179,8 +179,30 @@ const saveDataToGame = (req, callback) => {
                     resultData.pending.unshift(resultData.homeTeam)
                     resultData.homeTeam = resultData.pending.pop()
                 }
-                resultData.allResults.pop()
             }
+            const lastGame = resultData.allResults[resultData.allResults.length - 1]
+            if (lastGame && lastGame.gameFlow && lastGame.gameFlow.length > 0) {
+                lastGame.gameFlow.forEach((flow) => {
+                    if (flow.scorer) {
+                        const playerIndex = teams[flow.scorer.teamNumber].teamPlayers.findIndex(player => player.userID == flow.scorer.playerID)
+                        if (playerIndex > -1) {
+                            if (teams[flow.scorer.teamNumber].teamPlayers[playerIndex].goals && teams[flow.scorer.teamNumber].teamPlayers[playerIndex].goals > 0) {
+                                teams[flow.scorer.teamNumber].teamPlayers[playerIndex].goals--
+                            }
+                        }
+                    }
+
+                    if (flow.assist) {
+                        const playerIndexAssist = teams[flow.assist.teamNumber].teamPlayers.findIndex(player => player.userID == flow.assist.playerID)
+                        if (playerIndexAssist > -1) {
+                            if (teams[flow.assist.teamNumber].teamPlayers[playerIndexAssist].assists && teams[flow.assist.teamNumber].teamPlayers[playerIndexAssist].assists > 0) {
+                                teams[flow.assist.teamNumber].teamPlayers[playerIndexAssist].assists--
+                            }
+                        }
+                    }
+                })
+            }
+            resultData.allResults.pop()
         }
         if (functionToUse === 'saveResult') {
             const homeIndex = resultData.table.findIndex(team => team.teamName === resultData.homeTeam)
@@ -319,6 +341,7 @@ const saveDataToGame = (req, callback) => {
             "field_name": field_name,
             "homeTeam": resultData.homeTeam,
             "awayTeam": resultData.awayTeam,
+            "gameFlow": resultData.gameFlow,
             "awayScore": resultData.awayScore,
             "homeScore": resultData.homeScore,
             "showTieBreaker": resultData.showTieBreaker,
@@ -355,6 +378,7 @@ const getDataFromGame = async (req, callback) => {
             "field_name": result.field_name,
             "homeTeam": result.homeTeam || 0,
             "awayTeam": result.awayTeam || 0,
+            "gameFlow": result.gameFlow || [],
             "awayScore": result.awayScore || 0,
             "homeScore": result.homeScore || 0,
             "showTieBreaker": result.showTieBreaker || false,
