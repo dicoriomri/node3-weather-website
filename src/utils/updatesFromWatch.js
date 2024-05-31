@@ -61,15 +61,15 @@ const saveDataToGame = (req, callback) => {
         const teams = gameData.teams;
 
         if (!gameData.homeTeam) {
-            callback( false, {
+            callback(false, {
                     "field_name": null,
                     "homeTeam": null,
                     "awayTeam": null,
                     "awayScore": null,
-                    "gameFlow": null,
+                    // "gameFlow": null,
                     "homeScore": null,
                     "showTieBreaker": null
-            }
+                }
             )
         }
 
@@ -123,12 +123,14 @@ const saveDataToGame = (req, callback) => {
                         score: resultData.awayScore,
                         advances: variable !== 'awayTeam'
                     },
+                    gameFlow: resultData.gameFlow
                 }
             );
             resultData.pending.push(resultData[variable])
             resultData[variable] = resultData.pending.shift();
             resultData.homeScore = 0;
             resultData.awayScore = 0;
+            resultData.gameFlow = []
         }
         if (functionToUse === 'cancelResult') {
             resultData.showTieBreaker = false;
@@ -218,6 +220,7 @@ const saveDataToGame = (req, callback) => {
                             name: resultData.awayTeam,
                             score: resultData.awayScore
                         },
+                        gameFlow: resultData.gameFlow
                     }
                 );
             }
@@ -253,6 +256,7 @@ const saveDataToGame = (req, callback) => {
             } else {
                 resultData.awayScore = 0
                 resultData.homeScore = 0
+                resultData.gameFlow = []
             }
         }
 
@@ -312,6 +316,7 @@ const saveDataToGame = (req, callback) => {
             pending: resultData.pending,
             homeTeam: resultData.homeTeam,
             awayTeam: resultData.awayTeam,
+            gameFlow: resultData.gameFlow,
             homeScore: resultData.homeScore,
             awayScore: resultData.awayScore,
             showTieBreaker: resultData.showTieBreaker,
@@ -342,7 +347,7 @@ const saveDataToGame = (req, callback) => {
             "field_name": field_name,
             "homeTeam": resultData.homeTeam,
             "awayTeam": resultData.awayTeam,
-            "gameFlow": resultData.gameFlow,
+            // "gameFlow": resultData.gameFlow,
             "awayScore": resultData.awayScore,
             "homeScore": resultData.homeScore,
             "showTieBreaker": resultData.showTieBreaker,
@@ -376,15 +381,123 @@ const getDataFromGame = async (req, callback) => {
         })
     }
     callback(false, {
-            "gameTeams":gameTeams || [],
-            "field_name": result.field_name,
-            "homeTeam": result.homeTeam || 0,
-            "awayTeam": result.awayTeam || 0,
-            "gameFlow": result.gameFlow || [],
-            "awayScore": result.awayScore || 0,
-            "homeScore": result.homeScore || 0,
-            "showTieBreaker": result.showTieBreaker || false,
+        "gameTeams": gameTeams || [],
+        "field_name": result.field_name,
+        "homeTeam": result.homeTeam || 0,
+        "awayTeam": result.awayTeam || 0,
+        // "gameFlow": result.gameFlow || [],
+        "awayScore": result.awayScore || 0,
+        "homeScore": result.homeScore || 0,
+        "showTieBreaker": result.showTieBreaker || false,
     })
+}
+
+
+const saveResultFlow = async (req, callback) => {
+    const gameID = req.query.gameID;
+    const scorerPlayerName = req.query.scorerPlayerName;
+    const scorerValue = req.query.scorerValue;
+    const scorerPlayerID = req.query.scorerPlayerID;
+    const scorerTeamNumber = req.query.scorerTeamNumber;
+    const assistPlayerName = req.query.assistPlayerName;
+    const assistValue = req.query.assistValue;
+    const assistPlayerID = req.query.assistPlayerID;
+    const assistTeamNumber = req.query.assistTeamNumber;
+    const homeTeamScore = req.query.homeTeamScore;
+    const awayTeamScore = req.query.awayTeamScore;
+    const teamScoredFor = req.query.teamScoredFor;
+
+    const data = {
+        scorer: {
+            playerName: scorerPlayerName,
+            value: scorerValue,
+            playerID: scorerPlayerID,
+            teamNumber: parseInt(scorerTeamNumber)
+        },
+        assist: {
+            playerName: assistPlayerName,
+            value: assistValue,
+            playerID: assistPlayerID,
+            teamNumber: parseInt(assistTeamNumber)
+        },
+        homeTeamScore: parseInt(homeTeamScore),
+        awayTeamScore: parseInt(awayTeamScore),
+        teamScoredFor: parseInt(teamScoredFor)
+    }
+    return new Promise(async (resolve, reject) => {
+        const game = db.collection('games').doc(gameID);
+        const gameData = (await game.get()).data()
+        const field_name = gameData.field_name;
+        const teams = gameData.teams;
+        let resultData = {
+            allResults: gameData.allResults,
+            table: gameData.table,
+            pending: gameData.pending,
+            homeTeam: gameData.homeTeam,
+            awayTeam: gameData.awayTeam,
+            homeScore: gameData.homeScore || 0,
+            awayScore: gameData.awayScore || 0,
+            gameFlow: gameData.gameFlow || [],
+            showTieBreaker: gameData.showTieBreaker || false,
+        }
+        resultData.gameFlow.push(
+            {
+                scorer: data.scorer,
+                assist: data.assist,
+                homeTeamScore: data.homeTeamScore,
+                awayTeamScore: data.awayTeamScore,
+                teamScoredFor: data.teamScoredFor,
+            }
+        )
+        resultData.homeScore = data.homeTeamScore
+        resultData.awayScore = data.awayTeamScore
+        if (data.scorer && data.scorer.playerID !== 0) {
+            const playerIndex = teams[data.scorer.teamNumber - 1].teamPlayers.findIndex(player => player.userID == data.scorer.playerID)
+            if (playerIndex > -1) {
+                if (teams[data.scorer.teamNumber - 1].teamPlayers[playerIndex].goals) {
+                    teams[data.scorer.teamNumber - 1].teamPlayers[playerIndex].goals += 1
+                } else {
+                    teams[data.scorer.teamNumber - 1].teamPlayers[playerIndex].goals = 1
+                }
+            }
+        }
+        if (data.assist && data.assist.playerID !== 0) {
+            const playerIndex = teams[data.assist.teamNumber - 1].teamPlayers.findIndex(player => player.userID == data.assist.playerID)
+            if (playerIndex > -1) {
+                if (teams[data.assist.teamNumber - 1].teamPlayers[playerIndex].assists) {
+                    teams[data.assist.teamNumber - 1].teamPlayers[playerIndex].assists += 1
+                } else {
+                    teams[data.assist.teamNumber - 1].teamPlayers[playerIndex].assists = 1
+                }
+            }
+        }
+        resultData.teams = teams;
+
+        const result = await game.update({
+            allResults: resultData.allResults,
+            table: resultData.table,
+            pending: resultData.pending,
+            homeTeam: resultData.homeTeam,
+            awayTeam: resultData.awayTeam,
+            homeScore: resultData.homeScore,
+            awayScore: resultData.awayScore,
+            gameFlow: resultData.gameFlow,
+            showTieBreaker: resultData.showTieBreaker,
+            teams: teams,
+        })
+        callback(false, {
+            "gameTeams": resultData.teams || [],
+            "field_name": field_name,
+            "homeTeam": resultData.homeTeam || 0,
+            "awayTeam": resultData.awayTeam || 0,
+            // "gameFlow": result.gameFlow || [],
+            "awayScore": resultData.awayScore || 0,
+            "homeScore": resultData.homeScore || 0,
+            "showTieBreaker": resultData.showTieBreaker || false,
+        })
+    })
+
+
 }
 
 const getUserGames = async (req, callback) => {
@@ -416,8 +529,7 @@ const getUserGames = async (req, callback) => {
     })
 
 
-
 }
 
 
-module.exports = {saveDataToGame, getDataFromGame, getUserGames}
+module.exports = {saveDataToGame, getDataFromGame, getUserGames, saveResultFlow}
