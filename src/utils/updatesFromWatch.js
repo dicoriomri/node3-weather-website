@@ -451,7 +451,7 @@ const saveResultFlow = async (req, callback) => {
         )
         resultData.homeScore = data.homeTeamScore
         resultData.awayScore = data.awayTeamScore
-        if (data.scorer && data.scorer.playerID !== 0) {
+        if (data.scorer && data.scorer.playerID !== 0 && data.scorer.playerID !== "0") {
             const playerIndex = teams[data.scorer.teamNumber - 1].teamPlayers.findIndex(player => player.userID == data.scorer.playerID)
             if (playerIndex > -1) {
                 if (teams[data.scorer.teamNumber - 1].teamPlayers[playerIndex].goals) {
@@ -461,7 +461,7 @@ const saveResultFlow = async (req, callback) => {
                 }
             }
         }
-        if (data.assist && data.assist.playerID !== 0) {
+        if (data.assist && data.assist.playerID !== 0 && data.assist.playerID !== "0") {
             const playerIndex = teams[data.assist.teamNumber - 1].teamPlayers.findIndex(player => player.userID == data.assist.playerID)
             if (playerIndex > -1) {
                 if (teams[data.assist.teamNumber - 1].teamPlayers[playerIndex].assists) {
