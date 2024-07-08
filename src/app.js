@@ -40,7 +40,7 @@ app.get('/weather', (req, res) => {
 app.get('/version', (req, res) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Origin', '*');
-    return res.send({androidVersion: "3.27", iosVersion: "3.26", version: "3.25"});
+    return res.send({androidVersion: "3.27", iosVersion: "3.27", version: "3.27"});
 
 })
 
