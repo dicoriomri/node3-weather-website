@@ -191,8 +191,6 @@ const saveDataToGame = (req, callback) => {
                             if (teams[flow.scorer.teamNumber].teamPlayers[playerIndex].goals && teams[flow.scorer.teamNumber].teamPlayers[playerIndex].goals > 0) {
                                 teams[flow.scorer.teamNumber].teamPlayers[playerIndex].goals--
                             }
-                            const saveRef = db.collection('users').doc(player.userID);
-                            const result = saveRef.update({goals: FieldValue.increment(-1)})
                         }
                     }
 
@@ -203,8 +201,6 @@ const saveDataToGame = (req, callback) => {
                                 teams[flow.assist.teamNumber].teamPlayers[playerIndexAssist].assists--
                             }
                         }
-                        const saveRef = db.collection('users').doc(player.userID);
-                        const result = saveRef.update({assists: FieldValue.increment(-1)})
                     }
                 })
             }
@@ -274,9 +270,6 @@ const saveDataToGame = (req, callback) => {
                         gameData.teams[scoreValue - 1].teamPlayers[playerIndex].goals = 1
                     }
                 }
-                const saveRef = db.collection('users').doc(player.userID);
-                const result = await saveRef.update({goals: FieldValue.increment(+1)})
-
             }
         }
 
@@ -288,8 +281,6 @@ const saveDataToGame = (req, callback) => {
                         gameData.teams[scoreValue - 1].teamPlayers[playerIndex].goals--
                     }
                 }
-                const saveRef = db.collection('users').doc(player.userID);
-                const result = await saveRef.update({goals: FieldValue.increment(-1)})
             }
         }
 
@@ -304,8 +295,6 @@ const saveDataToGame = (req, callback) => {
                         gameData.teams[scoreValue - 1].teamPlayers[playerIndex].assists = 1
                     }
                 }
-                const saveRef = db.collection('users').doc(player.userID);
-                const result = await saveRef.update({assists: FieldValue.increment(+1)})
             }
         }
 
@@ -317,8 +306,6 @@ const saveDataToGame = (req, callback) => {
                         gameData.teams[scoreValue - 1].teamPlayers[playerIndex].assists--
                     }
                 }
-                const saveRef = db.collection('users').doc(player.userID);
-                const result = await saveRef.update({assists: FieldValue.increment(-1)})
             }
         }
 
@@ -473,8 +460,6 @@ const saveResultFlow = async (req, callback) => {
                     teams[data.scorer.teamNumber - 1].teamPlayers[playerIndex].goals = 1
                 }
             }
-            const saveRef = db.collection('users').doc(player.userID);
-            const result = await saveRef.update({goals: FieldValue.increment(+1)})
         }
         if (data.assist && data.assist.playerID !== 0 && data.assist.playerID !== "0") {
             const playerIndex = teams[data.assist.teamNumber - 1].teamPlayers.findIndex(player => player.userID == data.assist.playerID)
@@ -485,8 +470,6 @@ const saveResultFlow = async (req, callback) => {
                     teams[data.assist.teamNumber - 1].teamPlayers[playerIndex].assists = 1
                 }
             }
-            const saveRef = db.collection('users').doc(player.userID);
-            const result = await saveRef.update({assists: FieldValue.increment(+1)})
         }
         resultData.teams = teams;
 
