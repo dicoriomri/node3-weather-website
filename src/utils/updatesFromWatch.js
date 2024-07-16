@@ -192,6 +192,9 @@ const saveDataToGame = (req, callback) => {
                                 teams[flow.scorer.teamNumber].teamPlayers[playerIndex].goals--
                             }
                         }
+                        if (flow.scorer.playerID.length > 5) {
+                            updatePlayerGoals({userID: flow.scorer.playerID, action: '-'})
+                        }
                     }
 
                     if (flow.assist) {
@@ -200,6 +203,9 @@ const saveDataToGame = (req, callback) => {
                             if (teams[flow.assist.teamNumber].teamPlayers[playerIndexAssist].assists && teams[flow.assist.teamNumber].teamPlayers[playerIndexAssist].assists > 0) {
                                 teams[flow.assist.teamNumber].teamPlayers[playerIndexAssist].assists--
                             }
+                        }
+                        if (flow.assist.playerID.length > 5) {
+                            updatePlayerAssists({userID: flow.assist.playerID , action: '-'})
                         }
                     }
                 })
@@ -270,6 +276,9 @@ const saveDataToGame = (req, callback) => {
                         gameData.teams[scoreValue - 1].teamPlayers[playerIndex].goals = 1
                     }
                 }
+                if (variable.length > 5) {
+                    updatePlayerGoals({userID: variable, action: '+'})
+                }
             }
         }
 
@@ -280,6 +289,9 @@ const saveDataToGame = (req, callback) => {
                     if (gameData.teams[scoreValue - 1].teamPlayers[playerIndex].goals && gameData.teams[scoreValue - 1].teamPlayers[playerIndex].goals > 0) {
                         gameData.teams[scoreValue - 1].teamPlayers[playerIndex].goals--
                     }
+                }
+                if (variable.length > 5) {
+                    updatePlayerGoals({userID: variable, action: '-'})
                 }
             }
         }
@@ -295,6 +307,9 @@ const saveDataToGame = (req, callback) => {
                         gameData.teams[scoreValue - 1].teamPlayers[playerIndex].assists = 1
                     }
                 }
+                if (variable.length > 5) {
+                    updatePlayerAssists({userID: variable, action: '+'})
+                }
             }
         }
 
@@ -305,6 +320,9 @@ const saveDataToGame = (req, callback) => {
                     if (gameData.teams[scoreValue - 1].teamPlayers[playerIndex].assists && gameData.teams[scoreValue - 1].teamPlayers[playerIndex].assists > 0) {
                         gameData.teams[scoreValue - 1].teamPlayers[playerIndex].assists--
                     }
+                }
+                if (variable.length > 5) {
+                    updatePlayerAssists({userID: variable, action: '-'})
                 }
             }
         }
@@ -460,6 +478,9 @@ const saveResultFlow = async (req, callback) => {
                     teams[data.scorer.teamNumber - 1].teamPlayers[playerIndex].goals = 1
                 }
             }
+            if (data.scorer.playerID.length > 5) {
+                updatePlayerGoals({userID: data.scorer.playerID, action: '+'})
+            }
         }
         if (data.assist && data.assist.playerID !== 0 && data.assist.playerID !== "0") {
             const playerIndex = teams[data.assist.teamNumber - 1].teamPlayers.findIndex(player => player.userID == data.assist.playerID)
@@ -469,6 +490,9 @@ const saveResultFlow = async (req, callback) => {
                 } else {
                     teams[data.assist.teamNumber - 1].teamPlayers[playerIndex].assists = 1
                 }
+            }
+            if (data.assist.playerID.length > 5) {
+                updatePlayerAssists({userID: data.assist.playerID, action: '+'})
             }
         }
         resultData.teams = teams;
@@ -517,6 +541,15 @@ const getUserGames = async (req, callback) => {
                     field_name: gameData.field_name,
                     playDate: gameData.playDate
                 })
+                gamesToReturn.sort((a, b) => {
+                    if (moment(a.playDate + '' + a.starttime, 'DD/MM/YYYY HH:mm').isBefore(moment(b.playDate + '' + b.starttime, 'DD/MM/YYYY HH:mm'))) {
+                        return -1
+                    } else if (moment(b.playDate + '' + b.starttime, 'DD/MM/YYYY HH:mm').isBefore(moment(a.playDate + '' + a.starttime, 'DD/MM/YYYY HH:mm'))) {
+                        return 1
+                    } else {
+                        return 0;
+                    }
+                })
                 resolve()
             })
         )
@@ -528,7 +561,53 @@ const getUserGames = async (req, callback) => {
         })
     })
 
+}
 
+
+const updatePlayerGoals = async (data) => {
+    const playerRef = db.collection('users').doc(data.userID);
+    playerRef.get().then(async (response) => {
+        let playerData = response.data()
+        let goals = playerData && playerData.goals
+        if (goals) {
+            switch (data.action) {
+                case '+':
+                    goals++
+                    break;
+                case '-':
+                    if (goals > 0) {
+                        goals--
+                    }
+                    break;
+            }
+        } else if (data.action === '+') {
+            goals = 1
+        }
+        const result = await playerRef.update({goals})
+    })
+}
+
+const updatePlayerAssists = async (data) => {
+    const playerRef = db.collection('users').doc(data.userID);
+    playerRef.get().then(async (response) => {
+        let playerData = response.data()
+        let assists = playerData && playerData.assists
+        if (assists) {
+            switch (data.action) {
+                case '+':
+                    assists++
+                    break;
+                case '-':
+                    if (assists > 0) {
+                        assists--
+                    }
+                    break;
+            }
+        } else if (data.action === '+') {
+            assists = 1
+        }
+        const result = await playerRef.update({assists})
+    })
 }
 
 
