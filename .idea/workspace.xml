@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fb0e4ffa-5460-4893-8f1a-5abb92ea48cb" name="Default Changelist" comment="changes">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/updatesFromWatch.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/updatesFromWatch.js" afterDir="false" />
-    </list>
+    <list default="true" id="fb0e4ffa-5460-4893-8f1a-5abb92ea48cb" name="Default Changelist" comment="changes" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -68,6 +65,7 @@
       <recent name="D:\node3-weather-website\src\assets" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/versions" />
       <recent name="$PROJECT_DIR$/src/json" />
     </key>
   </component>
@@ -123,7 +121,7 @@
       <workItem from="1718000030780" duration="56000" />
       <workItem from="1718000223818" duration="1491000" />
       <workItem from="1720772408253" duration="1007000" />
-      <workItem from="1720791827842" duration="3644000" />
+      <workItem from="1720791827842" duration="3872000" />
     </task>
     <task id="LOCAL‎00001" summary="added user">
       <created>1603301014584</created>
@@ -153,7 +151,15 @@
       <option name="project" value="LOCAL" />
       <updated>1691403791081</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="changes">
+      <option name="closed" value="true" />
+      <created>1721116008636</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1721116008636</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
