@@ -1,7 +1,7 @@
 const path = require('path')
 const express = require('express')
 const hbs = require('hbs')
-const geocode = require('./utils/geocode')
+const {geocode, getPlace} = require('./utils/geocode')
 const {saveDataToGame, getDataFromGame, getUserGames, saveResultFlow} = require('./utils/updatesFromWatch')
 const {notificationsRegister, notificationsSend, notificationsScheduled, notificationsUnRegister} = require('./utils/notifications')
 
@@ -33,6 +33,18 @@ app.get('/weather', (req, res) => {
             return res.send({ error })
         }
         return res.send({dateTime, date, time});
+    })
+})
+
+app.get('/getPlaces', (req, res) => {
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+
+    getPlace(req, (error, response = {}) => {
+        if (error) {
+            return res.send({ error })
+        }
+        return res.send(response.body);
     })
 })
 

@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fb0e4ffa-5460-4893-8f1a-5abb92ea48cb" name="Default Changelist" comment="changes" />
+    <list default="true" id="fb0e4ffa-5460-4893-8f1a-5abb92ea48cb" name="Default Changelist" comment="changes">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/geocode.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/geocode.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -121,7 +125,9 @@
       <workItem from="1718000030780" duration="56000" />
       <workItem from="1718000223818" duration="1491000" />
       <workItem from="1720772408253" duration="1007000" />
-      <workItem from="1720791827842" duration="3872000" />
+      <workItem from="1720791827842" duration="5327000" />
+      <workItem from="1721283653297" duration="110000" />
+      <workItem from="1721284981454" duration="1733000" />
     </task>
     <task id="LOCAL‎00001" summary="added user">
       <created>1603301014584</created>
