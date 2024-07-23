@@ -52,7 +52,7 @@ app.get('/getPlaces', (req, res) => {
 app.get('/version', (req, res) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Origin', '*');
-    return res.send({androidVersion: "4.00", iosVersion: "4.00", version: "4.00"});
+    return res.send({androidVersion: "4.01", iosVersion: "4.01", version: "4.01"});
 
 })
 
