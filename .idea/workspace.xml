@@ -5,6 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fb0e4ffa-5460-4893-8f1a-5abb92ea48cb" name="Default Changelist" comment="changes">
+      <change afterPath="$PROJECT_DIR$/src/utils/functions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_07_2024,_10_45_[Default_Changelist]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_07_2024__10_45__Default_Changelist_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/geocode.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/geocode.js" afterDir="false" />
@@ -16,6 +19,13 @@
   </component>
   <component name="ComposerSettings">
     <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -127,7 +137,9 @@
       <workItem from="1720772408253" duration="1007000" />
       <workItem from="1720791827842" duration="5327000" />
       <workItem from="1721283653297" duration="110000" />
-      <workItem from="1721284981454" duration="1733000" />
+      <workItem from="1721284981454" duration="2368000" />
+      <workItem from="1721365907040" duration="600000" />
+      <workItem from="1721801585940" duration="4163000" />
     </task>
     <task id="LOCAL‎00001" summary="added user">
       <created>1603301014584</created>
