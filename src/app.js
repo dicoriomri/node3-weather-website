@@ -1,7 +1,7 @@
 const path = require('path')
 const express = require('express')
 const hbs = require('hbs')
-const {geocode, getPlace, getWeather} = require('./utils/geocode')
+const {geocode, getPlace, getWeather, getMapsToken} = require('./utils/geocode')
 const {saveDataToGame, getDataFromGame, getUserGames, saveResultFlow} = require('./utils/updatesFromWatch')
 const {notificationsRegister, notificationsSend, notificationsScheduled, notificationsUnRegister} = require('./utils/notifications')
 
@@ -56,6 +56,18 @@ app.get('/getWeather', (req, res) => {
             return res.send({ error })
         }
         return res.send(response.body);
+    })
+})
+app.get('/getToken', (req, res) => {
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+
+    getMapsToken(req, (error, response = {}) => {
+        console.log(response)
+        if (error) {
+            return res.send({ error })
+        }
+        return res.send(response);
     })
 })
 
