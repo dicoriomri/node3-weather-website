@@ -75,7 +75,7 @@ app.get('/getToken', (req, res) => {
 app.get('/version', (req, res) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Origin', '*');
-    return res.send({androidVersion: "4.13", iosVersion: "4.12", version: "4.12"});
+    return res.send({androidVersion: "4.13", iosVersion: "4.13", version: "4.12"});
 
 })
 
