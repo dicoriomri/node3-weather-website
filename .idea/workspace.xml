@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fb0e4ffa-5460-4893-8f1a-5abb92ea48cb" name="Default Changelist" comment="changes">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_30_07_2024,_09_13_[Default_Changelist]/shelved.patch" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/geocode.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/geocode.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,7 +138,9 @@
       <workItem from="1721365907040" duration="600000" />
       <workItem from="1721801585940" duration="4826000" />
       <workItem from="1721973717966" duration="1046000" />
-      <workItem from="1722317430548" duration="2329000" />
+      <workItem from="1722317430548" duration="3183000" />
+      <workItem from="1722449474109" duration="637000" />
+      <workItem from="1726594459083" duration="56000" />
     </task>
     <task id="LOCAL‎00001" summary="added user">
       <created>1603301014584</created>
